@@ -3,6 +3,6 @@ export interface IMovie {
 }
 
 export interface MoviesState {
-  movies: IMovie[]
+  list: IMovie[]
   status: 'idle' | 'loading' | 'failed'
 }
