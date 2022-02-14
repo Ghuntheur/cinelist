@@ -6,5 +6,6 @@
       auto-fill,
       minmax(calc(min(440px, 100%)), 1fr)
     );
+    margin-bottom: var(--spacing-l);
   }
 }

@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 
 export const fetchTMDB = async (
   endpoint: string,
@@ -29,8 +28,28 @@ export const fetchTMDB = async (
 }
 
 export const formatRelativeTime = (date: string): string => {
-  dayjs.extend(relativeTime)
-  console.log(date)
+  const moreThanSixMonths = dayjs().diff(dayjs(date), 'months') >= 6
 
-  return date
+  return moreThanSixMonths
+    ? dayjs(date).format('MMMM YYYY')
+    : dayjs(date).fromNow()
+}
+
+export const slugify = (string: string): string => {
+  let str = string.replace(/^\s+|\s+$/g, '')
+  str = str.toLowerCase()
+
+  // remove accents, swap ñ for n, etc
+  var from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;'
+  var to = 'aaaaeeeeiiiioooouuuunc------'
+  for (var i = 0, l = from.length; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+  }
+
+  str = str
+    .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+    .replace(/-+/g, '-') // collapse dashes
+
+  return str
 }

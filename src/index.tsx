@@ -1,20 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import * as serviceWorker from './serviceWorker'
 
 import { store } from './app/store'
 
 import App from './App'
-import './index.css'
+import MoviePage from './features/moviePage/MoviePage'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/film/:slug" element={<MoviePage />} />
+        </Routes>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
