@@ -1,8 +1,9 @@
 export interface IMovie {
-  name: string
+  title: string
 }
 
 export interface MoviesState {
   list: IMovie[]
+  nextPage: number
   status: 'idle' | 'loading' | 'failed'
 }

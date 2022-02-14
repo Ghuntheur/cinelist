@@ -1,8 +1,8 @@
 import { fetchTMDB } from '../../commons/helpers'
 
-export const fetchMoviesList = async () => {
+export const fetchMoviesList = async (page: number) => {
   try {
-    const data = await fetchTMDB('movie/popular')
-    console.log(data)
+    const data = await fetchTMDB('movie/popular', { page })
+    return data
   } catch (err) {}
 }

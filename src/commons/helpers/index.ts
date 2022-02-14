@@ -14,11 +14,10 @@ export const fetchTMDB = async (
       searchParams.append(key, data[key])
     )
 
-    const res = fetch(url.toString(), {
-      method: 'GET'
-    })
+    const res = await fetch(url.toString())
+    const fetchedData = await res.json()
 
-    console.log(res)
+    return fetchedData
   } catch (err) {
     console.error(err)
   }

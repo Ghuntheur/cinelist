@@ -1,19 +1,18 @@
+import { useDispatch, useSelector } from '@app/hooks'
 import { useEffect } from 'react'
-
-import { useDispatch } from '@app/hooks'
-import { fetchMovies } from './movies.slice'
+import { fetchMovies, selectNextPage } from './movies.slice'
 
 export function MoviesList() {
   const dispatch = useDispatch()
+  const nextPage = useSelector(selectNextPage)
 
   useEffect(() => {
-    dispatch(fetchMovies())
-  })
+    dispatch(fetchMovies(nextPage))
+  }, [])
 
   return (
     <div>
       <div>ok</div>
-      <div>{process.env.TMDB_JWT}</div>
     </div>
   )
 }
