@@ -8,6 +8,7 @@ import { fetchMoviesList } from './movies.api'
 const initialState: MoviesState = {
   list: [],
   nextPage: 1,
+  totalPages: 1,
   status: 'idle'
 }
 
@@ -29,10 +30,12 @@ export const moviesSlice = createSlice({
     })
 
     builder.addCase(fetchMovies.fulfilled, (state, action) => {
-      const { page, results } = action.payload
+      const { page, results, total_pages: totalPages } = action.payload
+
+      state.totalPages = totalPages
       state.status = 'idle'
       state.nextPage = page + 1
-      state.list = results
+      state.list.push(...results)
     })
   }
 })
@@ -41,5 +44,7 @@ export const moviesSlice = createSlice({
 export const selectMovies = (state: RootState): IMovie[] => state.movies.list
 export const selectNextPage = (state: RootState): number =>
   state.movies.nextPage
+export const selectLoading = (state: RootState) => state.movies.status
+export const selectTotalPages = (state: RootState) => state.movies.totalPages
 
 export default moviesSlice.reducer

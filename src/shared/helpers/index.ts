@@ -1,3 +1,6 @@
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
 export const fetchTMDB = async (
   endpoint: string,
   data: Record<string, any> = {},
@@ -10,6 +13,8 @@ export const fetchTMDB = async (
     const searchParams = url.searchParams
 
     searchParams.append('api_key', process.env.REACT_APP_TMDB_API_KEY as string)
+    searchParams.append('language', 'fr-FR')
+
     Object.keys(data).forEach((key: string) =>
       searchParams.append(key, data[key])
     )
@@ -21,4 +26,11 @@ export const fetchTMDB = async (
   } catch (err) {
     console.error(err)
   }
+}
+
+export const formatRelativeTime = (date: string): string => {
+  dayjs.extend(relativeTime)
+  console.log(date)
+
+  return date
 }

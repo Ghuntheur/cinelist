@@ -1,12 +1,12 @@
-import React from 'react'
+import MoviesList from './features/movies/MoviesList'
 
-import { MoviesList } from './features/movies/MoviesList'
-
-import './App.css'
+import './styles/index.scss'
 
 function App() {
   return (
-    <div className="App">
+    <div id="app-container">
+      <h1>Cinelist</h1>
+
       <MoviesList />
     </div>
   )

@@ -1,0 +1,29 @@
+.movie-item-container {
+  display: flex;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-light);
+
+  .media-container {
+    max-width: 120px;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .infos-container {
+    padding: var(--spacing-m);
+
+    .title {
+      font-size: var(--h3-size);
+      font-weight: bold;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .release-date {
+    }
+  }
+}

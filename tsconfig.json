@@ -17,8 +17,8 @@
     "jsx": "react-jsx",
     "paths": {
       "@app/*": ["./src/app/*"],
-      "@movies": ["./src/features/movies/*"],
-      "@commons/*": ["./src/commons/*"]
+      "@movies/*": ["./src/features/movies/*"],
+      "@shared/*": ["./src/shared/*"]
     }
   },
   "include": ["src"]

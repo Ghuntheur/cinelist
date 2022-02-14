@@ -1,0 +1,10 @@
+.movies-list-container {
+  > .list {
+    display: grid;
+    gap: var(--spacing-l);
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(calc(min(440px, 100%)), 1fr)
+    );
+  }
+}
