@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import * as serviceWorker from './serviceWorker'
 
@@ -17,6 +17,7 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/film/:slug" element={<MoviePage />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>
     </Provider>

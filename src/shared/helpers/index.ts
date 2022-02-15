@@ -1,30 +1,62 @@
 import dayjs from 'dayjs'
 
-export const fetchTMDB = async (
+const commonTMDBFetch = async (
   endpoint: string,
   data: Record<string, any> = {},
-  options: RequestInit = {}
+  options: RequestInit = {},
+  method = 'GET'
 ) => {
   const base = 'https://api.themoviedb.org/3'
 
   try {
     const url = new URL(`${base}/${endpoint}`)
-    const searchParams = url.searchParams
 
-    searchParams.append('api_key', process.env.REACT_APP_TMDB_API_KEY as string)
-    searchParams.append('language', 'fr-FR')
+    if (method === 'GET') {
+      const searchParams = url.searchParams
 
-    Object.keys(data).forEach((key: string) =>
-      searchParams.append(key, data[key])
-    )
+      searchParams.append(
+        'api_key',
+        process.env.REACT_APP_TMDB_API_KEY as string
+      )
+      searchParams.append('language', 'fr-FR')
 
-    const res = await fetch(url.toString())
+      Object.keys(data).forEach((key: string) =>
+        searchParams.append(key, data[key])
+      )
+    }
+
+    const res = await fetch(url.toString(), {
+      method,
+      ...(method !== 'GET' && {
+        body: JSON.stringify({
+          ...data,
+          api_key: process.env.REACT_APP_TMDB_API_KEY,
+          language: 'fr-FR'
+        })
+      })
+    })
+
     const fetchedData = await res.json()
-
     return fetchedData
-  } catch (err) {
-    console.error(err)
+  } catch (err: any) {
+    throw new Error(err)
   }
+}
+
+export const fetchTMDB = async (
+  endpoint: string,
+  data: Record<string, any> = {},
+  options: RequestInit = {}
+) => {
+  return commonTMDBFetch(endpoint, data, options, 'GET')
+}
+
+export const postTMDB = async (
+  endpoint: string,
+  data: Record<string, any> = {},
+  options: RequestInit = {}
+) => {
+  return commonTMDBFetch(endpoint, data, options, 'POST')
 }
 
 export const formatRelativeTime = (date: string): string => {

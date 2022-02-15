@@ -12,6 +12,7 @@ import {
 import MovieItem from './MovieItem'
 
 import './movies-list.style.scss'
+import Loader from '../../shared/components/Loader'
 
 export default function MoviesList() {
   const dispatch = useDispatch()
@@ -38,8 +39,8 @@ export default function MoviesList() {
       </div>
 
       {(isLoading || hasNextPage) && (
-        <div className="loader-container">
-          <div className="loader" ref={sentryRef} />
+        <div ref={sentryRef}>
+          <Loader />
         </div>
       )}
     </div>

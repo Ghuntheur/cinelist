@@ -3,6 +3,7 @@ export interface IMovie {
   title: string
   release_date: string
   poster_path: string
+  overview: string
 }
 
 export interface MoviesState {

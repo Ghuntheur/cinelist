@@ -5,7 +5,23 @@
   background: var(--color-light);
 
   .media-container {
-    max-width: 120px;
+    width: 140px;
+    min-height: 160px;
+
+    .placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--color-text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 38px;
+        height: 38px;
+        opacity: 0.4;
+      }
+    }
 
     img {
       height: 100%;
@@ -16,14 +32,24 @@
 
   .infos-container {
     padding: var(--spacing-m);
+    width: 100%;
 
     .title {
       font-size: var(--h3-size);
       font-weight: bold;
-      margin-bottom: var(--spacing-xs);
+      margin-bottom: var(--spacing-s);
     }
 
     .release-date {
+      color: var(--color-text-light);
+    }
+
+    .overview {
+      margin-top: var(--spacing-s);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
     }
   }
 }
