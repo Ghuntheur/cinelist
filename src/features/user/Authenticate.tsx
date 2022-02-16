@@ -12,8 +12,10 @@ export default function Authenticate() {
 
   useEffect(() => {
     const { token } = params
+
     dispatch(authenticate(token as string))
     dispatch(createSession(token as string))
+
     navigate('/')
   }, [])
 

@@ -14,7 +14,12 @@ const initialState: UserState = {
 
 export const createToken = createAsyncThunk('user/createToken', async () => {
   const token = await fetchRequestToken()
-  location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/authenticate/${token}`
+  const redirect =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : process.env.REACT_APP_URL_PROD
+
+  location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${redirect}/authenticate/${token}`
 })
 
 export const createSession = createAsyncThunk(
