@@ -3,6 +3,11 @@ export interface IMovieGenre {
   name: string
 }
 
+export interface IEndpointParams {
+  endpoint: string
+  query: Record<string, any>
+}
+
 export interface IMovie {
   id: number
   title: string
@@ -11,6 +16,7 @@ export interface IMovie {
   backdrop_path: string
   overview: string
   genres: IMovieGenre[]
+  showFavorites: boolean
 }
 
 export interface MoviesState {

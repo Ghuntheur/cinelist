@@ -18,6 +18,7 @@ import { useEffect } from 'react'
 
 interface MoviesListProps {
   endpoint: string
+  showFavorites: boolean
 }
 
 export default function MoviesList(props: MoviesListProps) {
@@ -31,7 +32,6 @@ export default function MoviesList(props: MoviesListProps) {
 
   useEffect(() => {
     dispatch(resetList())
-    dispatch(fetchMovies({ endpoint: props.endpoint, page: 1 }))
   }, [props.endpoint])
 
   const [sentryRef] = useInfiniteScroll({
@@ -46,7 +46,11 @@ export default function MoviesList(props: MoviesListProps) {
     <div className="movies-list-container">
       <div className="list">
         {movies.map(movie => (
-          <MovieItem key={`${props.endpoint}-${movie.id}`} {...movie} />
+          <MovieItem
+            key={`${props.endpoint}-${movie.id}`}
+            {...movie}
+            showFavorites={props.showFavorites}
+          />
         ))}
       </div>
 

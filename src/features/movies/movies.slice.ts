@@ -14,8 +14,17 @@ const initialState: MoviesState = {
 
 export const fetchMovies = createAsyncThunk(
   'movies/fetchMovies',
-  async ({ endpoint, page }: { endpoint: string; page: number }) => {
-    const data = await fetchMoviesList(endpoint, page)
+  async (
+    { endpoint, page }: { endpoint: string; page: number },
+    { getState }
+  ) => {
+    const state: RootState = getState() as RootState
+
+    const data = await fetchMoviesList(
+      endpoint,
+      { page },
+      { ...(state.user.sessionId && { session_id: state.user.sessionId }) }
+    )
     return data
   }
 )

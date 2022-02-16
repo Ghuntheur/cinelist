@@ -33,7 +33,7 @@ export default function MovieItem(props: IMovie) {
           <p className="overview">{props.overview}</p>
 
           <div className="actions">
-            <MovieFavorite id={props.id} />
+            {props.showFavorites && <MovieFavorite id={props.id} />}
           </div>
         </div>
       </div>

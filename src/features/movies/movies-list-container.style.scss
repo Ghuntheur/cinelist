@@ -1,0 +1,13 @@
+.movies-list-container {
+  > .filters-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-m);
+
+    select {
+      border: solid 1px var(--color-dark);
+      padding: var(--spacing-s);
+      padding-right: var(--spacing-xl);
+    }
+  }
+}
