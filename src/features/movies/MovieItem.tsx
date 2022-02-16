@@ -4,8 +4,6 @@ import { IMovie } from './movies.models'
 
 import { formatRelativeTime, slugify } from '../../shared/helpers'
 
-import placeholder from '../../assets/placeholder.svg'
-
 import './movie-item.style.scss'
 import MovieFavorite from './MovieFavorite'
 
@@ -19,9 +17,7 @@ export default function MovieItem(props: IMovie) {
           {props.poster_path ? (
             <img src={`https://image.tmdb.org/t/p/w154${props.poster_path}`} />
           ) : (
-            <div className="placeholder">
-              <img src={placeholder} alt={props.title} />
-            </div>
+            <div className="placeholder" />
           )}
         </div>
         <div className="infos-container">
