@@ -2,13 +2,11 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
 import moviesReducer from '../features/movies/movies.slice'
 import counterReducer from '../features/counter/counterSlice'
-import userReducer from '../features/user/user.slice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    movies: moviesReducer,
-    user: userReducer
+    movies: moviesReducer
   },
   devTools: true
 })

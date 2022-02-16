@@ -1,0 +1,13 @@
+button {
+  &.button {
+    padding: var(--spacing-xs) var(--spacing-s);
+    border: solid 1px var(--color-text);
+    border-radius: 4px;
+    background: transparent;
+
+    &.favorite {
+      background: var(--color-text);
+      color: var(--color-light);
+    }
+  }
+}

@@ -4,9 +4,18 @@
   overflow: hidden;
   background: var(--color-light);
 
+  &:hover {
+    .media-container {
+      img {
+        transform: scale(110%);
+      }
+    }
+  }
+
   .media-container {
     width: 140px;
     min-height: 160px;
+    overflow: hidden;
 
     .placeholder {
       width: 100%;
@@ -27,6 +36,7 @@
       height: 100%;
       width: 100%;
       object-fit: cover;
+      transition: transform 90ms ease;
     }
   }
 
@@ -50,6 +60,10 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
       overflow: hidden;
+    }
+
+    .actions {
+      margin-top: var(--spacing-s);
     }
   }
 }
