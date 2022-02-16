@@ -24,6 +24,6 @@ npm run build
 ### Amélioration
 
 - Garder en storage la sesssion pour pas se connecter tout le temps
-- Connaitre les films déjà ajouter en favoris (dans le localstorage par exemple)
+- Connaitre les films déjà ajoutés en favoris (dans le localstorage par exemple)
 - Faire des tests unitaires
 - Implémenter d'autres endpoint pour récupérer d'autres films
