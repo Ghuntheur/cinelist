@@ -5,33 +5,14 @@ import { IMovie } from './movies.models'
 import Button from '../../shared/components/Button'
 
 import { formatRelativeTime, slugify } from '../../shared/helpers'
+import useFavorite from '@app/useFavorites'
 
 import placeholder from '../../assets/placeholder.svg'
 
 import './movie-item.style.scss'
 
 export default function MovieItem(props: IMovie) {
-  const addFavorite = (ev: MouseEvent) => {
-    ev.preventDefault()
-
-    let favorites = localStorage.getItem('favorites') || '[]'
-
-    let array: number[] = JSON.parse(favorites)
-
-    if (array.includes(props.id)) {
-      array = array.filter(item => item !== props.id)
-      setFavorite(false)
-    } else {
-      array.push(props.id)
-      setFavorite(true)
-    }
-
-    localStorage.setItem('favorites', JSON.stringify(array))
-  }
-
-  const [isFavorite, setFavorite] = useState(
-    JSON.parse(localStorage.getItem('favorites') || '[]').includes(props.id)
-  )
+  const [isFavorite, { addFavorite, removeFavorite }] = useFavorite(props.id)
 
   useEffect(() => {
     const favorites = localStorage.getItem('favorites')
@@ -39,6 +20,11 @@ export default function MovieItem(props: IMovie) {
       localStorage.setItem('favorites', '[]')
     }
   }, [])
+
+  const handleFavorite = (ev: MouseEvent) => {
+    ev.preventDefault()
+    isFavorite ? removeFavorite() : addFavorite()
+  }
 
   const slug = `/film/${slugify(props.title)}-${props.id}`
 
@@ -64,7 +50,7 @@ export default function MovieItem(props: IMovie) {
 
           <div className="actions">
             <Button
-              onClick={addFavorite}
+              onClick={handleFavorite}
               className={isFavorite ? 'favorite' : ''}
             >
               {isFavorite ? 'Enlever des favoris' : 'Ajouter aux favoris'}
