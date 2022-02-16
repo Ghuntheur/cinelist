@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 const commonTMDBFetch = async (
   endpoint: string,
   data: Record<string, any> = {},
+  query: Record<string, any> = {},
   options: RequestInit = {},
   method = 'GET'
 ) => {
@@ -10,14 +11,15 @@ const commonTMDBFetch = async (
 
   try {
     const url = new URL(`${base}/${endpoint}`)
+    const searchParams = url.searchParams
+
+    searchParams.append('api_key', process.env.REACT_APP_TMDB_API_KEY as string)
+
+    Object.keys(query).forEach((key: string) => {
+      searchParams.append(key, query[key])
+    })
 
     if (method === 'GET') {
-      const searchParams = url.searchParams
-
-      searchParams.append(
-        'api_key',
-        process.env.REACT_APP_TMDB_API_KEY as string
-      )
       searchParams.append('language', 'fr-FR')
 
       Object.keys(data).forEach((key: string) =>
@@ -30,10 +32,13 @@ const commonTMDBFetch = async (
       ...(method !== 'GET' && {
         body: JSON.stringify({
           ...data,
-          api_key: process.env.REACT_APP_TMDB_API_KEY,
           language: 'fr-FR'
         })
-      })
+      }),
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      ...options
     })
 
     const fetchedData = await res.json()
@@ -46,17 +51,19 @@ const commonTMDBFetch = async (
 export const fetchTMDB = async (
   endpoint: string,
   data: Record<string, any> = {},
+  query: Record<string, any> = {},
   options: RequestInit = {}
 ) => {
-  return commonTMDBFetch(endpoint, data, options, 'GET')
+  return commonTMDBFetch(endpoint, data, query, options, 'GET')
 }
 
 export const postTMDB = async (
   endpoint: string,
   data: Record<string, any> = {},
+  query: Record<string, any> = {},
   options: RequestInit = {}
 ) => {
-  return commonTMDBFetch(endpoint, data, options, 'POST')
+  return commonTMDBFetch(endpoint, data, query, options, 'POST')
 }
 
 export const formatRelativeTime = (date: string): string => {

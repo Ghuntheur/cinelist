@@ -14,8 +14,8 @@ const initialState: MoviesState = {
 
 export const fetchMovies = createAsyncThunk(
   'movies/fetchMovies',
-  async (page: number) => {
-    const data = await fetchMoviesList(page)
+  async ({ endpoint, page }: { endpoint: string; page: number }) => {
+    const data = await fetchMoviesList(endpoint, page)
     return data
   }
 )
@@ -23,7 +23,12 @@ export const fetchMovies = createAsyncThunk(
 export const moviesSlice = createSlice({
   name: 'movies',
   initialState,
-  reducers: {},
+  reducers: {
+    resetList(state) {
+      state.list = []
+      state.nextPage = 1
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchMovies.pending, state => {
       state.status = 'loading'
@@ -39,6 +44,9 @@ export const moviesSlice = createSlice({
     })
   }
 })
+
+// actions
+export const { resetList } = moviesSlice.actions
 
 // getters
 export const selectMovies = (state: RootState): IMovie[] => state.movies.list

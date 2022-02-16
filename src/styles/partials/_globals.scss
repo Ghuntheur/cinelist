@@ -13,11 +13,28 @@ body {
 
 #app-container {
   padding: var(--spacing-xl) var(--spacing-xxl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   > h1 {
     text-align: center;
     font-size: var(--h1-size);
     margin-bottom: var(--spacing-l);
     font-weight: bold;
+  }
+
+  > button {
+    margin-bottom: var(--spacing-m);
+  }
+
+  > .filters-container {
+    margin-bottom: var(--spacing-m);
+
+    select {
+      border: solid 1px var(--color-dark);
+      padding: var(--spacing-s);
+      padding-right: var(--spacing-xl);
+    }
   }
 }

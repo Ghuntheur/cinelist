@@ -1,31 +1,15 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { IMovie } from './movies.models'
 
-import Button from '../../shared/components/Button'
-
 import { formatRelativeTime, slugify } from '../../shared/helpers'
-import useFavorite from '@app/useFavorites'
 
 import placeholder from '../../assets/placeholder.svg'
 
 import './movie-item.style.scss'
+import MovieFavorite from './MovieFavorite'
 
 export default function MovieItem(props: IMovie) {
-  const [isFavorite, { addFavorite, removeFavorite }] = useFavorite(props.id)
-
-  useEffect(() => {
-    const favorites = localStorage.getItem('favorites')
-    if (!favorites) {
-      localStorage.setItem('favorites', '[]')
-    }
-  }, [])
-
-  const handleFavorite = (ev: MouseEvent) => {
-    ev.preventDefault()
-    isFavorite ? removeFavorite() : addFavorite()
-  }
-
   const slug = `/film/${slugify(props.title)}-${props.id}`
 
   return (
@@ -49,12 +33,7 @@ export default function MovieItem(props: IMovie) {
           <p className="overview">{props.overview}</p>
 
           <div className="actions">
-            <Button
-              onClick={handleFavorite}
-              className={isFavorite ? 'favorite' : ''}
-            >
-              {isFavorite ? 'Enlever des favoris' : 'Ajouter aux favoris'}
-            </Button>
+            <MovieFavorite id={props.id} />
           </div>
         </div>
       </div>

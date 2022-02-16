@@ -3,6 +3,7 @@ import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { useDispatch, useSelector } from '@app/hooks'
 import {
   fetchMovies,
+  resetList,
   selectLoading,
   selectMovies,
   selectNextPage,
@@ -13,8 +14,13 @@ import MovieItem from './MovieItem'
 
 import './movies-list.style.scss'
 import Loader from '../../shared/components/Loader'
+import { useEffect } from 'react'
 
-export default function MoviesList() {
+interface MoviesListProps {
+  endpoint: string
+}
+
+export default function MoviesList(props: MoviesListProps) {
   const dispatch = useDispatch()
   const nextPage = useSelector(selectNextPage)
 
@@ -23,10 +29,16 @@ export default function MoviesList() {
 
   const hasNextPage = nextPage <= useSelector(selectTotalPages)
 
+  useEffect(() => {
+    dispatch(resetList())
+    dispatch(fetchMovies({ endpoint: props.endpoint, page: 1 }))
+  }, [props.endpoint])
+
   const [sentryRef] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage,
-    onLoadMore: () => dispatch(fetchMovies(nextPage)),
+    onLoadMore: () =>
+      dispatch(fetchMovies({ endpoint: props.endpoint, page: nextPage })),
     rootMargin: '0px 0px 400px 0px'
   })
 
@@ -34,7 +46,7 @@ export default function MoviesList() {
     <div className="movies-list-container">
       <div className="list">
         {movies.map(movie => (
-          <MovieItem key={movie.id} {...movie} />
+          <MovieItem key={`${props.endpoint}-${movie.id}`} {...movie} />
         ))}
       </div>
 
