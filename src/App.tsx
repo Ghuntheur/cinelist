@@ -31,7 +31,7 @@ function App() {
     <div id="app-container">
       <h1>Cinelist</h1>
 
-      {!connected && <Button onClick={handleConnectClick}>Conexion</Button>}
+      {!connected && <Button onClick={handleConnectClick}>Connexion</Button>}
 
       <Routes>
         <Route path="/" element={<MoviesListContainer />} />
