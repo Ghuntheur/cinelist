@@ -17,10 +17,7 @@ export default function MoviesListContainer() {
   const handleFilterChange = (ev: ChangeEvent<HTMLSelectElement>) => {
     const endpoint = ev.target.value
 
-    if (endpoint.startsWith('account')) {
-      setShowFavorites(false)
-    }
-
+    setShowFavorites(!endpoint.startsWith('account'))
     setEndpoint(endpoint)
   }
 
